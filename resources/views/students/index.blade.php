@@ -12,7 +12,21 @@
                         <a href="{{ url('/student/create') }}" class="btn btn-success btn-sm" title="Add New Student">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-                        <br/>
+						<div class="form-group pd2 clearmargin  col-lg-1 col-md-1 col-sm-1 col-xs-12 mt-3">
+							<form>
+								<select name='items' id='pagination' class="form-control">
+									<option value='5' @if($items==5) selected @endif>5</option>
+									<option value='10' @if($items==10) selected @endif>10</option>
+									<option value='25' @if($items==25) selected @endif>25</option>
+									<option value='50' @if($items==50) selected @endif>50</option>
+								</select>
+							</form>
+							<script>
+								document.getElementById('pagination').onchange = function() { 
+									window.location = "{!! $students->url(1) !!}&items=" + this.value; 
+								};
+							</script>
+						</div>
                         <br/>
                         <div class="table-responsive">
                             <table class="table">
@@ -64,7 +78,11 @@
                                 </tbody>
                             </table>
                         </div>
- 
+						
+							<div class="mt-4 p-4 box has-text-centered">
+								{{ $students->links() }}
+							</div>
+						
                     </div>
                 </div>
             </div>

@@ -20,6 +20,10 @@ class CreateStudentsTable extends Migration
 			$table->string('mobile');
             $table->timestamps();
         });
+		
+		Schema::table('students', function(Blueprint $table) {
+			$table->softDeletes();
+		});
     }
 
     /**
@@ -30,5 +34,9 @@ class CreateStudentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('students');
+		
+		Schema::table('students',function (Blueprint $table) {
+			$table->dropSoftDeletes();
+		});
     }
 }

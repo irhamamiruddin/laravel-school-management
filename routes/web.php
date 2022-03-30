@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function(){
 	Route::resource('/student',StudentController::class);
 	
 	Route::post("student/{student}/restore",[StudentController::class,"restore"])->name("student.restore");
+	
 });

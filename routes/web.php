@@ -18,4 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/student', StudentController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function(){
+	
+	Route::resource('/student',StudentController::class);
+	
+	Route::post("student/{student}/restore",[StudentController::class,"restore"])->name("student.restore");
+});

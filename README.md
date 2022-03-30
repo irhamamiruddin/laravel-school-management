@@ -1,2 +1,2 @@
 # laravel-school-management
-hello world
+test

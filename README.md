@@ -1,3 +1,3 @@
 # laravel-school-management
 
-Hello
+This is a school app created using Laravel framework.

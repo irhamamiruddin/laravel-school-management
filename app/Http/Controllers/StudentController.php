@@ -32,7 +32,7 @@ class StudentController extends Controller
 		$validator = $request->validate([
 			'name' => 'required|unique:students|min:12',
 			'address' => 'required|min:20',
-			'mobile' => 'required|unique:students|numeric|min:10',
+			'mobile' => 'required|unique:students|numeric|min:12',
 		]);
 		
 		$input = $request->all();
@@ -61,7 +61,7 @@ class StudentController extends Controller
         $validator = $request->validate([
 			'name' => 'required|min:12',
 			'address' => 'required|min:20',
-			'mobile' => 'required|numeric|min:10',
+			'mobile' => 'required|numeric|min:12',
 		]);
 		
 		$student = Student::find($id);

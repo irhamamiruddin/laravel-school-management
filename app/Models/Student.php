@@ -16,7 +16,7 @@ class Student extends Model
 	
 	public function course()
     {
-        return $this->belongsToMany(Course::class,'student_course');
+        return $this->belongsToMany(Course::class,'course_student');
     }
 	
 	// protected function pascalCase():Attribute

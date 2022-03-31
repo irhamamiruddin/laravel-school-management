@@ -12,11 +12,30 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="card-body">
-							<h5 class="card-title">Name : {{ $students->name }}</h5></br>
+							<h5 class="card-title">Name : {{ $students->name }}</h5><hr>
 							<p class="card-text">Address : {{ $students->address }}</p>
 							<p class="card-text">Mobile : {{ $students->mobile }}</p>
-						</div>					   
-						</hr>				  
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Course</th>
+											<th>Program</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($students->course as $course)
+											<tr>
+												<td>{{ $loop->iteration }}</td>
+												<td>{{ $course->unit_title }}</td>
+												<td>{{ $course->program->program_name }}</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>				  
 					</div>
 				</div>
 				

@@ -81,7 +81,7 @@ class StudentController extends Controller
 	
 	public function restore($id)
 	{
-		Student::withTrashed()->restore($id);
+		$student = Student::withTrashed()->find($id)->restore();
 		return redirect('student')->with('flash_message','Student Restored!');
 	}
 }

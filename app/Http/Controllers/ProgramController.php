@@ -79,7 +79,7 @@ class ProgramController extends Controller
 	
 	public function restore($id)
 	{
-		Program::withTrashed()->restore($id);
+		Program::withTrashed()->find($id)->restore();
 		return redirect('program')->with('flash_message','Program Restored!');
 	}
 }

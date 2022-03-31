@@ -82,7 +82,7 @@ class CourseController extends Controller
 	
 	public function restore($id)
 	{
-		Course::withTrashed()->restore($id);
+		Course::withTrashed()->find($id)->restore();
 		return redirect('course')->with('flash_message','Course Restored!');
 	}
 }

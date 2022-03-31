@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,12 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function(){
 	
 	Route::resource('/student',StudentController::class);
-	
 	Route::post("student/{student}/restore",[StudentController::class,"restore"])->name("student.restore");
+	
+	Route::resource('/program',ProgramController::class);
+	Route::post("program/{program}/restore",[ProgramController::class,"restore"])->name("program.restore");
+	
+	Route::resource('/course',CourseController::class);
+	Route::post("course/{course}/restore",[CourseController::class,"restore"])->name("course.restore");
 	
 });

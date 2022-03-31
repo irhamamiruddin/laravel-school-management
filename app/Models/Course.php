@@ -15,6 +15,7 @@ class Course extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = ['program_id','unit_code','unit_title'];
 	
+	// A course belongs to one program.
 	public function program()
     {
         return $this->belongsTo(Program::class,'program_id');

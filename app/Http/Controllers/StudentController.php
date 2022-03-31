@@ -59,9 +59,9 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $validator = $request->validate([
-			'name' => 'required|min:12',
+			'name' => 'required|unique:students|min:12',
 			'address' => 'required|min:20',
-			'mobile' => 'required|numeric|min:12',
+			'mobile' => 'required|unique:students|numeric|min:12',
 		]);
 		
 		$student = Student::find($id);
@@ -81,8 +81,7 @@ class StudentController extends Controller
 	
 	public function restore($id)
 	{
-		$student = Student::withTrashed()->find($id);
-		$student->restore();
+		Student::withTrashed()->restore($id);
 		return redirect('student')->with('flash_message','Student Restored!');
 	}
 }

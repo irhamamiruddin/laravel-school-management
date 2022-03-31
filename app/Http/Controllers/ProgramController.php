@@ -2,83 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use App\Models\Program;
 
 class ProgramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	
+	
     public function index()
     {
-        //
+        $items = $request->items ?? 5;
+		$program = Program::withTrashed()->paginate($items);
+
+		return view('programs.index')
+			->with(['programs'=>$program,'items'=>$items]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('programs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+		$validator = $request->validate([
+			'program_code' => 'required|unique:program|min:5',
+			'program_name' => 'required|unique:program',
+			'program_level' => 'required',
+		]);
+		
+        $input = $request->all();
+		Program::create($input);
+		return redirect('program')->with('flash_message','New Program Added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
-        //
+        $program = Program::find($id);
+		return view('programs.show')->with('programs',$program);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $program = Program::find($id);
+		return view('programs.edit')->with('programs',$program);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
-    {
-        //
+    {		
+		$validator = $request->validate([
+			'program_code' => 'required|unique:program|min:5',
+			'program_name' => 'required|unique:program',
+			'program_level' => 'required',
+		]);
+		
+        $input = $request->all();
+		$program = Program::find($id);
+		$program = update($input);
+		return redirect('program')->with('flash_message','Program Updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        Program::destroy($id);
+		return redirect('program')->with('flash_message','Program Deleted!');
     }
+	
+	
+	public function restore($id)
+	{
+		Program::withTrashed()->restore($id);
+		return redirect('program')->with('flash_message','Program Restored!');
+	}
 }

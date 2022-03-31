@@ -15,6 +15,7 @@ class Program extends Model
 	protected $primaryKey = 'id';
 	protected $fillable = ['program_code','program_name','program_level'];
 	
+	// A program has one course.
 	public function course()
     {
         return $this->hasMany(Course::class);

@@ -18,11 +18,11 @@
 		<form action="{{ url('student') }}" method="post">
 			{!! csrf_field() !!}
 			<label>Name</label></br>
-			<input type="text" name="name" id="name" class="form-control"></br>
+			<input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control"></br>
 			<label>Address</label></br>
-			<input type="text" name="address" id="address" class="form-control"></br>
+			<input type="text" name="address" id="address" value="{{ old('address') }}" class="form-control"></br>
 			<label>Mobile</label></br>
-			<input type="text" name="mobile" id="mobile" class="form-control"></br>
+			<input type="text" name="mobile" id="mobile" value="{{ old('mobile') }}" class="form-control"></br>
 			<input type="submit" value="Save" class="btn btn-success"></br>
 		</form>
    

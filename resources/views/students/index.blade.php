@@ -49,7 +49,7 @@
 											<td>{{ $loop->iteration }}</td>
 											<td>{{ $item->name }}</td>
 											<td>{{ $item->address }}</td>
-											<td>{{ $item->mobile }}</td>
+											<td>+60 {{ $item->mobile }}</td>
 											<td>
 												@if($item->deleted_at == NULL)
 													Active

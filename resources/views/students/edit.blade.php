@@ -32,7 +32,10 @@
 							<label>Address</label></br>
 							<input type="text" name="address" id="address" value="{{ old('address',$students->address) }}" class="form-control"></br>
 							<label>Mobile</label></br>
-							<input type="text" name="mobile" id="mobile" value="{{ old('mobile',$students->mobile) }}" class="form-control"></br>
+							<div class="input-group">
+								<span class="input-group-text">+60</span>
+								<input type="text" name="mobile" id="mobile" value="{{ old('mobile',$students->mobile) }}" class="form-control"></br>
+							</div></br>
 							<input type="submit" value="Update" class="btn btn-success"></br>
 						</form>
 				   

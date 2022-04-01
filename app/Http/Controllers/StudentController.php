@@ -35,8 +35,9 @@ class StudentController extends Controller
 			'mobile' => 'required|unique:students|numeric|min:12',
 		]);
 		
-		$input = $request->all();
-		Student::create($input);
+        $input = $request->all();
+        Student::create($input);
+
 		return redirect('student')->with('flash_message','Student Added!');
 			
     }
@@ -59,9 +60,9 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $validator = $request->validate([
-			'name' => 'required|unique:students|min:12',
+			'name' => 'required|min:12',
 			'address' => 'required|min:20',
-			'mobile' => 'required|unique:students|numeric|min:12',
+			'mobile' => 'required|numeric|min:12',
 		]);
 		
 		$student = Student::find($id);

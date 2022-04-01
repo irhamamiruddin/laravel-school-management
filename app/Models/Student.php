@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Student extends Model
 {
@@ -17,22 +18,23 @@ class Student extends Model
 	public function course()
     {
         return $this->belongsToMany(Course::class,'course_student');
+	}
+
+
+	protected function name(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  $value,
+            set: fn ($value) =>  str_replace(' ', '', ucwords($value)),
+        );
+    }
+
+	protected function mobile(): Attribute
+    {
+        return new Attribute(
+			get: fn ($value) => trim($value,"+60"),
+			set: fn ($value) => "+60".$value ,
+        );
     }
 	
-	// protected function pascalCase():Attribute
-	// {
-		// return Attribute::make(
-			// get: fn ($value) => ucfirst($value),
-			// set: fn ($value) => strtolower($value),
-		// );
-	// }
-	
-	
-	// protected function phoneNo():Attribute
-	// {
-		// return Attribute::make(
-			// get: fn ($value) => ;
-			// set: fn ($value) => ;
-		// );
-	// }
 }

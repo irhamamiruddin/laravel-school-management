@@ -36,5 +36,22 @@ class Student extends Model
 			set: fn ($value) => "+60".$value ,
         );
     }
+
+
+    // query scope
+	public function scopeActive($query)
+    {
+        return $query->where('deleted_at', '=', NULL);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('deleted_at', '!=', NULL);
+    }
+
+    public function scopeSearch($query,$search)
+    {
+        return $query->where('name', 'LIKE', "%$search%");
+    }
 	
 }

@@ -12,19 +12,19 @@ class CourseController extends Controller
 {
 	
 	
-    public function index()
+    public function index(Request $request)
     {
-        $items = $request->items ?? 5;
-		$course = Course::withTrashed()->paginate($items);
+        $items = $request->input('items', 5);
+        $course = Course::withTrashed()->paginate($items);
 
-		return view('course.index')
-			->with(['course'=>$course,'items'=>$items]);
+        return view('course.index')
+          ->with(['course'=>$course,'items'=>$items]);
     }
 
     
     public function create()
     {
-		$program = Program::get();
+		    $program = Program::get();
         return view('course.create')->with('programs',$program);
     }
 

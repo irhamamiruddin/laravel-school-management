@@ -12,11 +12,34 @@ class StudentController extends Controller
   
     public function index(Request $request)
     {
-        $items = $request->items ?? 5;
-		$student = Student::withTrashed()->paginate($items);
+        $items = $request->input('items', 5);
+        $trashed = $request->input('trashed', 0);
+        $status = $request->input('status');
+        $search = $request->input('search');
+
+        $student = Student::query();
+
+        // Condition to show trashed
+        if($trashed == 1)
+            $student = Student::withTrashed();
+            
+        // Search
+        if($search != NULL){
+                $student = $student->search($search);
+        }
+
+        // Condition for status
+        if($status == "active"){
+            $student = $student->active();
+        }
+        else if($status == "inactive"){
+            $student = $student->inactive();
+        }
+
+        $student = $student->paginate($items)->appends($request->except('page'));
 
 		return view('students.index')
-			->with(['students'=>$student,'items'=>$items]);
+			->with(['students'=>$student,'items'=>$items,'status'=>$status,'trashed'=>$trashed, 'search'=>$search]);
 		
     }
 
@@ -45,14 +68,14 @@ class StudentController extends Controller
     
     public function show($id)
     {
-        $student = Student::find($id);
+        $student = Student::withTrashed()->find($id);
 		return view('students.show')->with('students',$student);
     }
 
     
     public function edit($id)
     {
-       $student = Student::find($id);
+       $student = Student::withTrashed()->find($id);
 	   return view('students.edit')->with('students',$student);
     }
 
@@ -65,7 +88,7 @@ class StudentController extends Controller
 			'mobile' => 'required|numeric|min:12',
 		]);
 		
-		$student = Student::find($id);
+		$student = Student::withTrashed()->find($id);
 		$input = $request->all();
 		$student->update($input);
 		return redirect('student')->with('flash_message','Student Updated!');
@@ -85,4 +108,5 @@ class StudentController extends Controller
 		$student = Student::withTrashed()->find($id)->restore();
 		return redirect('student')->with('flash_message','Student Restored!');
 	}
+
 }

@@ -20,7 +20,7 @@
 							</a>
 							<div class="form-group pd2 clearmargin  col-lg-1 col-md-1 col-sm-1 col-xs-12 mt-3">
 								<form>
-									<select name='items' id='pagination' class="form-control">
+									<select name='items' id='pagination'  onchange="changeItemsPerPage()" class="form-control form-select-sm"">
 										<option value='5' @if($items==5) selected @endif>5</option>
 										<option value='10' @if($items==10) selected @endif>10</option>
 										<option value='25' @if($items==25) selected @endif>25</option>
@@ -28,8 +28,9 @@
 									</select>
 								</form>
 								<script>
-									document.getElementById('pagination').onchange = function() { 
-										window.location = "{!! $programs->url(1) !!}&items=" + this.value; 
+									function changeItemsPerPage(){ 
+										var item = document.getElementById("pagination").value;
+										window.location = "{!! $programs->url(1) !!}&items=" + item; 
 									};
 								</script>
 							</div>

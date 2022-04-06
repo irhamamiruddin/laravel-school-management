@@ -11,9 +11,9 @@ class ProgramController extends Controller
 {
 	
 	
-    public function index()
+    public function index(Request $request)
     {
-        $items = $request->items ?? 5;
+        $items = $request->input('items', 5);
 		$program = Program::withTrashed()->paginate($items);
 
 		return view('programs.index')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 use App\Models\Student;
 
@@ -78,12 +79,12 @@ class StudentController extends Controller
        $student = Student::withTrashed()->find($id);
 	   return view('students.edit')->with('students',$student);
     }
-
-
+    
+    
     public function update(Request $request, $id)
     {
         $validator = $request->validate([
-			'name' => 'required|min:12',
+            'name' => 'required|min:12',
 			'address' => 'required|min:20',
 			'mobile' => 'required|numeric|min:12',
 		]);
@@ -91,8 +92,10 @@ class StudentController extends Controller
 		$student = Student::withTrashed()->find($id);
 		$input = $request->all();
 		$student->update($input);
-		return redirect('student')->with('flash_message','Student Updated!');
 
+        Artisan::call('command:refresh', ['id' => $id, '--model' => 'student']);
+		
+        return redirect('student')->with('flash_message','Student Updated!');
     }
 
     

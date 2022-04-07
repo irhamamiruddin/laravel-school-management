@@ -67,6 +67,7 @@
 											<th>Address</th>
 											<th>Mobile</th>
 											<th>Status</th>
+											<th>Updated At</th>
 											<th>Actions</th>
 										</tr>
 									</thead>
@@ -84,6 +85,7 @@
 													Inactive
 												@endif
 											</td>
+											<td>{{ $item->updated_at }}</td>
 	 
 											<td>
 												<a href="{{ url('/student/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

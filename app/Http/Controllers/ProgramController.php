@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 use App\Models\Program;
 
@@ -50,7 +51,7 @@ class ProgramController extends Controller
 
     public function edit($id)
     {
-        $program = Program::find($id);
+        $program = Program::withTrashed()->find($id);
 		return view('programs.edit')->with('programs',$program);
     }
 
@@ -58,14 +59,17 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {		
 		$validator = $request->validate([
-			'program_code' => 'required|unique:program|min:5',
-			'program_name' => 'required|unique:program',
+			'program_code' => 'required|min:5',
+			'program_name' => 'required',
 			'program_level' => 'required',
 		]);
-		
-        $input = $request->all();
-		$program = Program::find($id);
-		$program = update($input);
+
+        $program = Program::withTrashed()->find($id);
+		$input = $request->all();
+		$program->update($input);
+
+        Artisan::call('command:refresh', ['id' => $id, '--model' => 'program']);
+
 		return redirect('program')->with('flash_message','Program Updated!');
     }
 

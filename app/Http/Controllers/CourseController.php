@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 use App\Models\Course;
 use App\Models\Program;
@@ -31,21 +32,21 @@ class CourseController extends Controller
     
     public function store(Request $request)
     {
-		$validator = $request->validate([
-			'unit_code' => 'required|unique:course|min:6',
-			'unit_title' => 'required|unique:course',
-			'program_id' => 'required',
-		]);
+        $validator = $request->validate([
+            'unit_code' => 'required|unique:course|min:6',
+            'unit_title' => 'required|unique:course',
+            'program_id' => 'required',
+        ]);
 		
         $input = $request->all();
-		Course::create($input);
-		return redirect('course')->with('flash_message','New Course Added!');
+        Course::create($input);
+        return redirect('course')->with('flash_message','New Course Added!');
     }
 
     
     public function show($id)
     {
-        $course = Course::find($id);
+        $course = Course::withTrashed()->find($id);
 		return view('course.show')->with('course',$course);
     }
 
@@ -53,23 +54,26 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-		$program = Program::get();
-		return view('course.edit')->with(['course'=>$course,'programs'=>$program]);
+        $program = Program::withTrashed()->get();
+        return view('course.edit')->with(['course'=>$course,'programs'=>$program]);
     }
 
     
     public function update(Request $request, $id)
     {		
-		$validator = $request->validate([
-			'unit_code' => 'required|unique:course|min:6',
-			'unit_title' => 'required|unique:course',
-			'program_id' => 'required',
-		]);
+        $validator = $request->validate([
+            'unit_code' => 'required|min:6',
+            'unit_title' => 'required',
+            'program_id' => 'required',
+        ]);
 		
         $input = $request->all();
-		$course = Course::find($id);
-		$course = update($input);
-		return redirect('course')->with('flash_message','Course Updated!');
+        $course = Course::withTrashed()->find($id);
+        $course->update($input);
+
+        Artisan::call('command:refresh', ['id' => $id, '--model' => 'course']);
+		    
+        return redirect('course')->with('flash_message','Course Updated!');
     }
 
     

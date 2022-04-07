@@ -14,7 +14,7 @@
 						<div class="card-body">
 							<h5 class="card-title">Name : {{ $students->name }}</h5><hr>
 							<p class="card-text">Address : {{ $students->address }}</p>
-							<p class="card-text">Mobile : {{ $students->mobile }}</p>
+							<p class="card-text">Mobile : +60{{ $students->mobile }}</p>
 							<div class="table-responsive">
 								<table class="table">
 									<thead>

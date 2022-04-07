@@ -33,7 +33,7 @@
 							<input type="text" name="program_name" id="program_name" value="{{ old('program_name',$programs->program_name) }}" class="form-control"></br>
 							<label>Program Level</label></br>
 							<select name="program_level" id="program_level" class="form-control text-capitalize">
-								<option value="{{ old('program_level') }}" hidden>{{ old('program_level',$programs->program_level) }}</option>
+								<option value="{{ old('program_level',$programs->program_level) }}" hidden>{{ old('program_level',$programs->program_level) }}</option>
 								<option value='foundation'>Foundation</option>
 								<option value='diploma'>Diploma</option>
 								<option value='degree'>Degree</option>

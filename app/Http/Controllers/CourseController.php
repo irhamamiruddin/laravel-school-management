@@ -62,7 +62,7 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {		
         $validator = $request->validate([
-            'unit_code' => 'required|min:6',
+            'unit_code' => "required|unique:course,unit_code,$id|min:6",
             'unit_title' => 'required',
             'program_id' => 'required',
         ]);

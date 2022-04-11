@@ -30,8 +30,8 @@
 
 							<!-- Toggle Trashed -->
 							<div class="form-check form-switch mt-3">
-								<input class="form-check-input" type="checkbox" role="switch" name="trash" id="trash" value="1" onchange="submit()" @if($trashed==1) checked @endif>
-								<label class="form-check-label" for="trash">Show Trashed</label>
+								<input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" name="trash" id="trash" value="1" onchange="submit()" @if($trashed==1) checked @endif>
+								<label class="form-check-label inline-block text-gray-800" for="trash">Show Trashed</label>
 							</div>
 
 							<!-- Select Status -->
@@ -88,20 +88,30 @@
 											<td>{{ $item->updated_at }}</td>
 	 
 											<td>
-												<a href="{{ url('/student/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-												<a href="{{ url('/student/' . $item->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+												<a href="{{ url('/student/' . $item->id) }}" title="View Student">
+													<button class="inline-block px-2.5 py-2 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
+														<i class="fa fa-eye" aria-hidden="true"></i> View
+													</button>
+												</a>
+												<a href="{{ url('/student/' . $item->id . '/edit') }}" title="Edit Student">
+													<button class="inline-block px-2.5 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+													</button>
+												</a>
 	 
 												@if($item->deleted_at == NULL)
 													<form method="POST" action="{{ url('/student' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
 														{{ method_field('DELETE') }}
 														{{ csrf_field() }}
-														<button type="submit" class="btn btn-danger btn-sm" title="Delete Student" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+														<button type="submit" class="inline-block px-2.5 py-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" title="Delete Student" onclick="return confirm(&quot;Confirm delete?&quot;)">
+															<i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+														</button>
 													</form>
 												@else
 													<form method="POST" action="{{ url('/student' . '/' . $item->id) . '/restore' }}" accept-charset="UTF-8" style="display:inline">
 														<input type="hidden" name="id" value="{{ $item->id }}"/>
 														{{ csrf_field() }}
-														<button type="submit" class="btn btn-success btn-sm" title="Restore Student" onclick="return confirm(&quot;Confirm restore?&quot;)"><i class="fa fa-undo" aria-hidden="true"></i> Restore</button>
+														<button type="submit" class="inline-block px-2.5 py-2 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out" title="Restore Student" onclick="return confirm(&quot;Confirm restore?&quot;)"><i class="fa fa-undo" aria-hidden="true"></i> Restore</button>
 													</form>
 												@endif
 											</td>

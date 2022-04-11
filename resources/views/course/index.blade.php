@@ -59,20 +59,20 @@
 											</td>
 	 
 											<td>
-												<a href="{{ url('/course/' . $item->id) }}" title="View Course"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-												<a href="{{ url('/course/' . $item->id . '/edit') }}" title="Edit Course"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+												<a href="{{ url('/course/' . $item->id) }}" title="View Course"><button class="inline-block px-2.5 py-2 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+												<a href="{{ url('/course/' . $item->id . '/edit') }}" title="Edit Course"><button class="inline-block px-2.5 py-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 	 
 												@if($item->deleted_at == NULL)
 													<form method="POST" action="{{ url('/course' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
 														{{ method_field('DELETE') }}
 														{{ csrf_field() }}
-														<button type="submit" class="btn btn-danger btn-sm" title="Delete Course" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+														<button type="submit" class="binline-block px-2.5 py-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" title="Delete Course" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
 													</form>
 												@else
 													<form method="POST" action="{{ url('/course' . '/' . $item->id) . '/restore' }}" accept-charset="UTF-8" style="display:inline">
 														<input type="hidden" name=value="{{ $item->id }}"/>
 														{{ csrf_field() }}
-														<button type="submit" class="btn btn-success btn-sm" title="Restore Course" onclick="return confirm(&quot;Confirm restore?&quot;)"><i class="fa fa-undo" aria-hidden="true"></i> Restore</button>
+														<button type="submit" class="inline-block px-2.5 py-2 bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out" title="Restore Course" onclick="return confirm(&quot;Confirm restore?&quot;)"><i class="fa fa-undo" aria-hidden="true"></i> Restore</button>
 													</form>
 												@endif
 											</td>
